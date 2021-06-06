@@ -1,20 +1,24 @@
 <template class="container">
   <FrameHeader head="ToDex" />
+  <AddTask @new-task="newTask" />
   <Tasks
     @delete-task="deleteTask"
     :tasks="tasks"
-    @toggle-reminder="toggleReminder"
+    @toggle-importance="toggleImportance"
+    @toggle-check="toggleCheck"
   />
 </template>
 
 <script>
 import FrameHeader from "./components/FrameHeader";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
   components: {
     FrameHeader,
     Tasks,
+    AddTask,
   },
   data() {
     return {
@@ -22,12 +26,24 @@ export default {
     };
   },
   methods: {
+    newTask(task) {
+      console.log(task);
+      this.tasks.push(task);
+      console.log(this.tasks);
+    },
     deleteTask(id) {
       this.tasks = this.tasks.filter((task) => task.id !== id);
     },
-    toggleReminder(id) {
+
+    toggleImportance(id) {
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, important: !task.important } : task
+      );
+    },
+
+    toggleCheck(id) {
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
       );
     },
   },
@@ -37,21 +53,21 @@ export default {
         id: 1,
         text: "This is Task 1",
         day: "June 6 at 9:15pm",
-        reminder: true,
+        important: true,
         completed: true,
       },
       {
         id: 2,
         text: "This is Task 2",
         day: "June 8 at 9:15pm",
-        reminder: true,
+        important: true,
         completed: false,
       },
       {
         id: 3,
         text: "This is Task 3",
         day: "June 10 at 9:15pm",
-        reminder: false,
+        important: false,
         completed: false,
       },
     ];

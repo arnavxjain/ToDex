@@ -1,19 +1,33 @@
 <template>
   <div
-    @dblclick="$emit('toggle-reminder', task.id)"
-    :class="[task.reminder ? 'reminder' : '', 'task']"
+    @dblclick="$emit('toggle-importance', task.id)"
+    :class="[
+      task.important ? (task.completed ? 'reminder-comp' : 'reminder') : '',
+      'task',
+    ]"
   >
     <div :class="[task.completed ? 'completed-task-info' : '', 'task-info']">
-      <h3>{{ task.text }}</h3>
-      <label>{{ task.day }}</label>
+      <h3 class="h3-main">{{ task.text }}</h3>
+      <label class="h3-minor">{{ task.day }}</label>
     </div>
     <div class="task-btns">
       <FrameButton
         @click="$emit('delete-task', task.id)"
         class="task-btn del"
-        clicker="fas fa-times"
+        clicker="fas fa-trash"
       />
-      <FrameButton clicker="fas fa-check" class="task-btn checker" />
+      <FrameButton
+        @click="$emit('toggle-check', task.id)"
+        v-if="task.completed"
+        clicker="fas fa-times"
+        class="task-btn uncheck"
+      />
+      <FrameButton
+        @click="$emit('toggle-check', task.id)"
+        v-else
+        clicker="fas fa-check"
+        class="task-btn checker"
+      />
     </div>
   </div>
 </template>
@@ -41,10 +55,18 @@ export default {
     transform: scale(1);
   }
 }
+.task-info {
+  margin-left: 15px;
+  width: fit-content;
+  justify-content: left !important;
+}
 .completed-task-info {
+  color: rgb(74, 74, 74);
   text-decoration: line-through;
+  transition: 200ms ease-in-out;
 }
 .task {
+  animation: scaleup 0.4s;
   background-color: rgb(40, 40, 40);
   margin: 20px;
   border-radius: 10px;
@@ -57,11 +79,14 @@ export default {
   justify-content: space-between;
   transition: 200ms ease-in-out;
 }
-h3 {
-  margin: 0;
+.h3-main {
+  margin: 0 !important;
+  transform: translateX(-10px);
+  transition: 200ms ease-in-out;
 }
-label {
-  margin-left: 20px;
+.h3-minor {
+  transition: 200ms ease-in-out;
+  text-align: left;
 }
 .task-btn {
   display: none;
@@ -77,6 +102,12 @@ label {
   border-bottom-left-radius: 3px;
   border-left: 10px solid #1b2e4e;
 }
+.reminder-comp {
+  transition: 200ms ease-in-out;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-left: 10px solid #2c2c2c;
+}
 .task-btns {
   display: flex;
   align-items: center;
@@ -86,10 +117,20 @@ label {
 }
 .checker:hover {
   background-color: #008013;
+  transition: 100ms ease-in-out;
   color: black;
 }
 .del:hover {
   background-color: #ff4040;
+  transition: 100ms ease-in-out;
+  color: black;
+}
+.uncheck {
+  margin-left: 8px;
+}
+.uncheck:hover {
+  background-color: #ff4040;
+  transition: 100ms ease-in-out;
   color: black;
 }
 </style>
