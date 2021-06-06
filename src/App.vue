@@ -38,18 +38,21 @@ export default {
         text: "This is Task 1",
         day: "June 6 at 9:15pm",
         reminder: true,
+        completed: true,
       },
       {
         id: 2,
         text: "This is Task 2",
         day: "June 8 at 9:15pm",
         reminder: true,
+        completed: false,
       },
       {
         id: 3,
         text: "This is Task 3",
         day: "June 10 at 9:15pm",
         reminder: false,
+        completed: false,
       },
     ];
   },
@@ -68,9 +71,9 @@ body {
   color: #3f6080;
   background-color: #222222;
   /* padding: 10px; */
-  border: 2px solid #3f6080;
-  margin: 20px;
-  border-radius: 10px;
+  /* border: 2px solid #3f6080; */
+  /* margin: 20px; */
+  /* border-radius: 10px; */
 }
 
 .frame-form {
