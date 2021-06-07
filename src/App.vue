@@ -1,16 +1,25 @@
 <template class="container">
-  <FrameHeader head="ToDex" />
-  <AddTask @new-task="newTask" />
+  <FrameHeader
+    :showAddTask="showAddTask"
+    @toggle-newtask="toggleNewTask"
+    head="ToDex"
+  />
+  <div v-show="showAddTask">
+    <AddTask @new-task="newTask" />
+  </div>
   <Tasks
     @delete-task="deleteTask"
     :tasks="tasks"
     @toggle-importance="toggleImportance"
     @toggle-check="toggleCheck"
   />
+
+  <FrameButton clicker="fas fa-info" class="info-btn" />
 </template>
 
 <script>
 import FrameHeader from "./components/FrameHeader";
+import FrameButton from "./components/FrameButton";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
@@ -19,10 +28,12 @@ export default {
     FrameHeader,
     Tasks,
     AddTask,
+    FrameButton,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
@@ -45,6 +56,11 @@ export default {
       this.tasks = this.tasks.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task
       );
+    },
+
+    toggleNewTask() {
+      this.showAddTask = !this.showAddTask;
+      this.$emit("change-btn");
     },
   },
   created() {
@@ -117,5 +133,10 @@ body {
 .todex-entry:focus {
   box-shadow: 0 0 5px #3f6080;
   border: 2px solid #3f6080;
+}
+.info-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }
 </style>

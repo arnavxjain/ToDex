@@ -1,7 +1,11 @@
 <template>
   <div class="frame-header">
     <h1>{{ head }}</h1>
-    <FrameButton clicker="fas fa-plus" />
+    <FrameButton
+      :class="showAddTask ? 'rotate' : ''"
+      clicker="fas fa-plus"
+      @click="$emit('toggle-newtask')"
+    />
   </div>
 </template>
 
@@ -13,7 +17,10 @@ export default {
   components: {
     FrameButton,
   },
-  props: ["head"],
+  props: {
+    head: String,
+    showAddTask: Boolean,
+  },
 };
 </script>
 
@@ -24,5 +31,12 @@ export default {
   justify-content: space-between;
   padding: 2px 30px;
   border-radius: 10px;
+}
+.rotate {
+  transform: rotate(-45deg);
+}
+.rotate:hover {
+  background-color: #ff4040;
+  color: black;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="add-task">
+    <!-- <h2 style="margin-top: 0">Add New Task</h2> -->
     <input v-model="title" type="text" placeholder="Task Title" />
     <input v-model="day" type="text" placeholder="Date And Time" />
     <div class="tasker">
