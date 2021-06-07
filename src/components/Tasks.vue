@@ -1,11 +1,14 @@
 <template>
-  <div :key="task.id" v-for="task in tasks">
+  <div :key="task.id" v-for="task in tasks" v-show="tasks.length > 0">
     <Task
       @toggle-importance="$emit('toggle-importance', task.id)"
       @delete-task="$emit('delete-task', task.id)"
       @toggle-check="$emit('toggle-check', task.id)"
       :task="task"
     />
+  </div>
+  <div v-show="tasks.length === 0 || !tasks">
+    <img src="../assets/no-tasks.svg" />
   </div>
 </template>
 
@@ -16,6 +19,12 @@ export default {
   name: "Tasks",
   props: {
     tasks: Array,
+  },
+  data() {
+    return {
+      noTasks: this.tasks.length === 0 ? true : false,
+      // noTasks: false,
+    };
   },
   components: {
     Task,

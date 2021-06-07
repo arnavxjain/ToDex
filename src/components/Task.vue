@@ -56,9 +56,20 @@ export default {
   }
 }
 .task-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   margin-left: 15px;
-  width: fit-content;
-  justify-content: left !important;
+  max-width: 70%;
+}
+.task-info h3 {
+  margin: 0;
+  word-break: break-all;
+  text-align: left;
+}
+.task-info label {
+  word-break: break-all;
+  text-align: left;
 }
 .completed-task-info {
   color: rgb(74, 74, 74);
@@ -78,8 +89,10 @@ export default {
   align-items: center;
   justify-content: space-between;
   transition: 200ms ease-in-out;
+  user-select: none;
+  box-shadow: 1px 4px 8px rgb(30, 30, 30);
 }
-.h3-main {
+/* .h3-main {
   margin: 0 !important;
   transform: translateX(-10px);
   transition: 200ms ease-in-out;
@@ -87,7 +100,7 @@ export default {
 .h3-minor {
   transition: 200ms ease-in-out;
   text-align: left;
-}
+} */
 .task-btn {
   display: none;
   transition: 100ms ease-in-out;

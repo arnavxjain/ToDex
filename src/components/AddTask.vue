@@ -27,7 +27,7 @@ export default {
   methods: {
     addTask() {
       const newTaskObj = {
-        id: Math.floor(Math.random() * 100000),
+        // id: Math.floor(Math.random() * 100000),
         text: this.title,
         day: this.day,
         important: this.important,

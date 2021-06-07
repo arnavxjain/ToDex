@@ -37,24 +37,70 @@ export default {
     };
   },
   methods: {
-    newTask(task) {
-      console.log(task);
-      this.tasks.push(task);
-      console.log(this.tasks);
-    },
-    deleteTask(id) {
-      this.tasks = this.tasks.filter((task) => task.id !== id);
+    async newTask(task) {
+      const res = await fetch("http://localhost:5050/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+
+      const data = await res.json();
+
+      this.tasks = [...this.tasks, data];
     },
 
-    toggleImportance(id) {
+    async deleteTask(id) {
+      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+        method: "DELETE",
+      });
+      res.status === 200
+        ? (this.tasks = this.tasks.filter((task) => task.id !== id))
+        : alert("An Error Ocurred! Try reloading the page");
+    },
+
+    async toggleImportance(id) {
+      const taskToToggle = await this.fetchTask(id);
+      const updateTask = {
+        ...taskToToggle,
+        important: !taskToToggle.important,
+      };
+
+      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updateTask),
+      });
+
+      const data = await res.json();
+
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, important: !task.important } : task
+        task.id === id ? { ...task, important: data.important } : task
       );
     },
 
-    toggleCheck(id) {
+    async toggleCheck(id) {
+      const taskToToggle = await this.fetchTask(id);
+      const updateTask = {
+        ...taskToToggle,
+        completed: !taskToToggle.completed,
+      };
+
+      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updateTask),
+      });
+
+      const data = await res.json();
+
       this.tasks = this.tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
+        task.id === id ? { ...task, completed: data.completed } : task
       );
     },
 
@@ -62,31 +108,23 @@ export default {
       this.showAddTask = !this.showAddTask;
       this.$emit("change-btn");
     },
+
+    async fetchTasks() {
+      const res = await fetch("http://localhost:5050/tasks");
+      const data = await res.json();
+
+      return data;
+    },
+
+    async fetchTask(id) {
+      const res = await fetch(`http://localhost:5050/tasks/${id}`);
+      const data = await res.json();
+
+      return data;
+    },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "This is Task 1",
-        day: "June 6 at 9:15pm",
-        important: true,
-        completed: true,
-      },
-      {
-        id: 2,
-        text: "This is Task 2",
-        day: "June 8 at 9:15pm",
-        important: true,
-        completed: false,
-      },
-      {
-        id: 3,
-        text: "This is Task 3",
-        day: "June 10 at 9:15pm",
-        important: false,
-        completed: false,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
 };
 </script>
@@ -106,6 +144,8 @@ body {
   /* border: 2px solid #3f6080; */
   /* margin: 20px; */
   /* border-radius: 10px; */
+  max-width: 700px;
+  margin: auto;
 }
 
 .frame-form {

@@ -35,8 +35,4 @@ export default {
 .rotate {
   transform: rotate(-45deg);
 }
-.rotate:hover {
-  background-color: #ff4040;
-  color: black;
-}
 </style>
