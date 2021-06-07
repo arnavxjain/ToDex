@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     async newTask(task) {
-      const res = await fetch("http://localhost:5050/tasks", {
+      const res = await fetch("api/tasks", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -52,7 +52,7 @@ export default {
     },
 
     async deleteTask(id) {
-      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+      const res = await fetch(`api/tasks/${id}`, {
         method: "DELETE",
       });
       res.status === 200
@@ -67,7 +67,7 @@ export default {
         important: !taskToToggle.important,
       };
 
-      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+      const res = await fetch(`api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -89,7 +89,7 @@ export default {
         completed: !taskToToggle.completed,
       };
 
-      const res = await fetch(`http://localhost:5050/tasks/${id}`, {
+      const res = await fetch(`api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -110,14 +110,14 @@ export default {
     },
 
     async fetchTasks() {
-      const res = await fetch("http://localhost:5050/tasks");
+      const res = await fetch("api/tasks");
       const data = await res.json();
 
       return data;
     },
 
     async fetchTask(id) {
-      const res = await fetch(`http://localhost:5050/tasks/${id}`);
+      const res = await fetch(`api/tasks/${id}`);
       const data = await res.json();
 
       return data;
