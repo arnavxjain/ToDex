@@ -7,8 +7,8 @@
       :task="task"
     />
   </div>
-  <div v-show="tasks.length === 0 || !tasks">
-    <img src="../assets/no-tasks.svg" />
+  <div class="no-task-div" v-show="tasks.length === 0 || !tasks">
+    <img class="no-task-div" src="../assets/no-tasks.svg" />
   </div>
 </template>
 
@@ -32,3 +32,10 @@ export default {
   emits: ["delete-task", "toggle-importance", "toggle-check"],
 };
 </script>
+
+<style scoped>
+.no-task-div {
+  width: 300px;
+  margin: auto;
+}
+</style>

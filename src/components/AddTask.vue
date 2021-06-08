@@ -35,13 +35,14 @@ export default {
       };
 
       this.$emit("new-task", newTaskObj);
+      this.$emit("hide-new-task");
 
       this.title = "";
       this.day = "";
       this.important = false;
     },
   },
-  emits: ["new-task"],
+  emits: ["new-task", "hide-new-task"],
 };
 </script>
 

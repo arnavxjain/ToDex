@@ -5,7 +5,7 @@
     head="ToDex"
   />
   <div v-show="showAddTask">
-    <AddTask @new-task="newTask" />
+    <AddTask @new-task="newTask" @hide-new-task="switchShowAddTask" />
   </div>
   <Tasks
     @delete-task="deleteTask"
@@ -170,6 +170,10 @@ export default {
 
       return data;
     },
+
+    switchShowAddTask() {
+      this.showAddTask = false;
+    },
   },
   async created() {
     this.tasks = await this.fetchTasks();
@@ -250,7 +254,7 @@ body {
 .info {
   box-shadow: 1px 4px 8px rgb(30, 30, 30);
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 15px;
   background-color: rgb(40, 40, 40);
   width: 80%;
   position: absolute;

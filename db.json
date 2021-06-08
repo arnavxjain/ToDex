@@ -1,11 +1,11 @@
 {
   "tasks": [
     {
-      "text": "task 1",
-      "day": "kskmssks",
+      "text": "Finish Math Homework",
+      "day": "June 9th 2021",
+      "important": true,
       "completed": false,
-      "id": 1,
-      "important": false
+      "id": 1
     }
   ]
 }

@@ -102,12 +102,16 @@ export default {
   text-align: left;
 } */
 .task-btn {
-  display: none;
   transition: 100ms ease-in-out;
   animation: scaleup 0.2s;
 }
 .task:hover .task-btn {
   display: block;
+}
+@media (max-width: 490px) {
+  .task-btn {
+    display: block;
+  }
 }
 .reminder {
   transition: 200ms ease-in-out;
