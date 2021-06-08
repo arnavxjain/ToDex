@@ -2,7 +2,7 @@
   <FrameHeader
     :showAddTask="showAddTask"
     @toggle-newtask="toggleNewTask"
-    head="ToDex"
+    head="TosDex"
   />
   <div v-show="showAddTask">
     <AddTask @new-task="newTask" @hide-new-task="switchShowAddTask" />
