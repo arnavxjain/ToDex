@@ -2,7 +2,7 @@ module.exports = {
     devServer: {
         proxy: {
             '^/api': {
-                target: `http://localhost:5050`,
+                target: `https://todex.netlify.app`,
                 changeOrigin: true,
                 logLevel: 'debug',
                 pathRewrite: { '^/api': `/` }
