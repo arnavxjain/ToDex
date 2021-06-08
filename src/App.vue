@@ -14,7 +14,33 @@
     @toggle-check="toggleCheck"
   />
 
-  <FrameButton clicker="fas fa-info" class="info-btn" />
+  <FrameButton
+    v-show="!showingInfo"
+    :clicker="showingInfo ? 'fas fa-arrow-down' : 'fas fa-info'"
+    class="info-btn show-info-btn"
+    @click="showInfo"
+  />
+
+  <div class="info">
+    <h1 style="margin: 0">ToDex</h1>
+    <h3 style="margin: 0">The Ultimate UI Vue Based Task Planner</h3>
+    <FrameButton
+      clicker="fas fa-arrow-down"
+      class="info-btn close-info"
+      @click="hideInfo"
+    />
+    <hr />
+    <p>
+      <b>ToDex</b> is a task planner developed and maintained by
+      <a href="https://arnavjain.in">Arnav Jain</a>. Using VueJS as its
+      acceleration framework, JSON-SERVER for database mapping and FontAwesome
+      for its amazing UI, <b>ToDex</b> is the way to go.
+    </p>
+    <hr />
+    <a style="margin-bottom: 7px" href="https://github.com/arnavjainn06/ToDex"
+      >View On GitHub</a
+    >
+  </div>
 </template>
 
 <script>
@@ -34,9 +60,31 @@ export default {
     return {
       tasks: [],
       showAddTask: false,
+      showingInfo: false,
     };
   },
   methods: {
+    showInfo() {
+      document.getElementsByClassName("info")[0].style.display = "flex";
+      this.showingInfo = true;
+    },
+    hideInfo() {
+      document.getElementsByClassName("info")[0].style.transform =
+        "translateY(-500px)";
+      // document.getElementsByClassName("info")[0].style.display = "none";
+      // document.getElementsByClassName("info")[0].style.transform =
+      //   "translateY(0)";
+      document.getElementsByClassName("info")[0].style.animation =
+        "slidedown 0.6s";
+      setTimeout(() => {
+        document.getElementsByClassName("info")[0].style.display = "none";
+        document.getElementsByClassName("info")[0].style.animation =
+          "slideup 0.6s";
+        document.getElementsByClassName("info")[0].style.transform =
+          "translateY(0)";
+      }, 600);
+      this.showingInfo = false;
+    },
     async newTask(task) {
       const res = await fetch("api/tasks", {
         method: "POST",
@@ -134,6 +182,8 @@ export default {
 * {
   font-family: "Poppins", sans-serif;
 }
+.container {
+}
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -146,6 +196,8 @@ body {
   /* border-radius: 10px; */
   max-width: 700px;
   margin: auto;
+  overflow-y: hidden;
+  transition: top 0.4s;
 }
 
 .frame-form {
@@ -178,5 +230,76 @@ body {
   position: absolute;
   right: 20px;
   bottom: 20px;
+}
+@keyframes slideup {
+  from {
+    transform: translateY(500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slidedown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(500px);
+  }
+}
+.info {
+  box-shadow: 1px 4px 8px rgb(30, 30, 30);
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgb(40, 40, 40);
+  width: 80%;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  animation: slideup 0.6s;
+  max-width: 500px;
+}
+.info p {
+  color: #8498ac;
+  margin: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+hr {
+  width: 90%;
+  border: none;
+  height: 1px;
+  background-color: rgb(50, 50, 50);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a {
+  color: rgb(149, 149, 149);
+  text-decoration: underline;
+  transition: 200ms ease-in-out;
+}
+a:hover {
+  color: #3f6080;
+  transition: 200ms ease-in-out;
+}
+.close-info {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+}
+@keyframes scaleup {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+.show-info-btn {
+  animation: scaleup 0.3s;
 }
 </style>

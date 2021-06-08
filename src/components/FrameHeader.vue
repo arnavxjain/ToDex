@@ -2,9 +2,9 @@
   <div class="frame-header">
     <h1>{{ head }}</h1>
     <FrameButton
-      :class="showAddTask ? 'rotate' : ''"
+      :class="[showAddTask ? 'rotate' : '', 'header-btn']"
       clicker="fas fa-plus"
-      @click="$emit('toggle-newtask')"
+      @click="toggleNewTask"
     />
   </div>
 </template>
@@ -21,6 +21,14 @@ export default {
     head: String,
     showAddTask: Boolean,
   },
+  data() {
+    return {};
+  },
+  methods: {
+    toggleNewTask() {
+      this.$emit("toggle-newtask");
+    },
+  },
 };
 </script>
 
@@ -34,5 +42,8 @@ export default {
 }
 .rotate {
   transform: rotate(-45deg);
+}
+.header-btn {
+  z-index: 99;
 }
 </style>

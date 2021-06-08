@@ -1,6 +1,6 @@
 <template>
   <div class="add-task">
-    <!-- <h2 style="margin-top: 0">Add New Task</h2> -->
+    <h2 style="margin-top: 0; margin-bottom: 5px">Add New Task</h2>
     <input v-model="title" type="text" placeholder="Task Title" />
     <input v-model="day" type="text" placeholder="Date And Time" />
     <div class="tasker">
@@ -11,7 +11,6 @@
       Add <i class="fas fa-plus"></i>
     </button>
   </div>
-  <hr />
 </template>
 
 <script>
@@ -24,6 +23,7 @@ export default {
       important: this.important,
     };
   },
+  components: {},
   methods: {
     addTask() {
       const newTaskObj = {
@@ -46,8 +46,31 @@ export default {
 </script>
 
 <style scoped>
-input {
+@keyframes liftup2 {
+  from {
+    transform: translateY(-500px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.add-task {
+  box-shadow: 10px 14px 18px rgb(30, 30, 30);
+  padding: 10px;
+  border-radius: 10px;
   background-color: rgb(40, 40, 40);
+  width: 90%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  left: 0;
+  margin: auto;
+  top: 80px;
+  animation: liftup2 0.6s;
+}
+input {
+  background-color: rgb(47, 47, 47);
   border: none;
   padding: 4px;
   text-indent: 5px;
@@ -56,7 +79,7 @@ input {
   color: gray;
   outline: none;
   font-size: 14px;
-  width: 88%;
+  width: 95%;
   border-left: 8px solid #1b2e4e;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
@@ -96,5 +119,10 @@ hr {
 .task-btn:disabled {
   cursor: default;
   color: rgb(81, 81, 81);
+}
+.close-task-btn {
+  position: absolute;
+  right: 15px;
+  top: 11px;
 }
 </style>
